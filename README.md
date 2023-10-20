@@ -1,2 +1,2 @@
-# vanilla-rebalance
+# Rebanancing Vanilla
 Rebalancing Vanilla Minecraft
