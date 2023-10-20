@@ -1,4 +1,4 @@
-package boombabob.rebalancingvanilla.mixin;
+package boombabob.rebalancingVanilla.mixin;
 
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;

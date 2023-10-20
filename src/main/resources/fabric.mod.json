@@ -3,23 +3,23 @@
 	"id": "rebalancing-vanilla",
 	"version": "${version}",
 	"name": "rebalancing-vanilla",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Rebalancing Vanilla Minecraft",
 	"authors": [
-		"Me!"
+		"Boombabob"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/Boombabob/rebalancing-vanilla",
+		"sources": "https://github.com/Boombabob/rebalancing-vanilla"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/rebalancing-vanilla/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"boombabob.rebalancingvanilla.Rebalancingvanilla"
+          "boombabob.rebalancingVanilla.RebalancingVanilla"
 		],
 		"fabric-datagen": [
-			"boombabob.rebalancingvanilla.RebalancingvanillaDataGenerator"
+			"boombabob.rebalancingVanilla.RebalancingVanillaDataGenerator"
 		]
 	},
 	"mixins": [
