@@ -1,30 +1,48 @@
 package boombabob.rebalancingVanilla.mixin;
 
 import boombabob.rebalancingVanilla.RebalancingVanilla;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.CampfireBlock;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
 
-    @Inject(method = "travelControlled", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;travel(Lnet/minecraft/util/math/Vec3d;)V", shift = At.Shift.BEFORE))
-    private void fakeSwim(PlayerEntity controllingPlayer, Vec3d movementInput, CallbackInfo ci) {
-        if (RebalancingVanilla.CONFIG.horsesSwim && ((LivingEntity)(Object)this instanceof AbstractHorseEntity)) {
-            AbstractHorseEntity instance = ((AbstractHorseEntity)(Object)this);
-            if (instance.getFluidHeight(FluidTags.WATER) > instance.getSwimHeight()) {
-                instance.addVelocity(0, 0.06, 0);
+    @ModifyArg(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V", ordinal = 6))
+    private Vec3d modifyElytraFlight(Vec3d vec3d) {
+        LivingEntity instance = ((LivingEntity)(Object) this);
+        BlockPos instancePos = instance.getBlockPos();
+        if (RebalancingVanilla.CONFIG.campfireUpdraftStrength > 0) {
+            for (int i = 0; i < Math.max(RebalancingVanilla.CONFIG.campfireUpdraftHeight, RebalancingVanilla.CONFIG.signalCampfireUpdraftHeight); i++) {
+                BlockState blockIBelow = instance.getWorld().getBlockState(instancePos.down(i));
+                if (CampfireBlock.isLitCampfire(blockIBelow)) {
+                    int maxDistance;
+                    if (blockIBelow.get(Properties.SIGNAL_FIRE)) {
+                        maxDistance = RebalancingVanilla.CONFIG.signalCampfireUpdraftHeight;
+                    } else {
+                        maxDistance = RebalancingVanilla.CONFIG.campfireUpdraftHeight;
+                    }
+                    if (i > maxDistance) {
+                        break;
+                    }
+                    if (blockIBelow.getBlock() == Blocks.SOUL_CAMPFIRE) {
+                        vec3d = vec3d.add(0, RebalancingVanilla.CONFIG.soulCampfireUpdraftStrength / 10, 0);
+                    } else {
+                        vec3d = vec3d.add(0, RebalancingVanilla.CONFIG.campfireUpdraftStrength / 10, 0);
+                    }
+                    break;
+                } else if (!blockIBelow.isAir()) {
+                    break;
+                }
             }
         }
-    }
-
-    @ModifyArg(method = "travel", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V", ordinal = 6))
-    private Vec3d slowElytra(Vec3d vec3d) {
         return vec3d.multiply(RebalancingVanilla.CONFIG.elytraSpeedMultiplier, 1, RebalancingVanilla.CONFIG.elytraSpeedMultiplier);
     }
 }

@@ -1,12 +1,11 @@
 package boombabob.rebalancingVanilla.mixin;
 
 import boombabob.rebalancingVanilla.RebalancingVanilla;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.registry.tag.FluidTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -18,15 +17,16 @@ public abstract class AbstractHorseEntityMixin {
      */
     @Overwrite
     public float getSaddledSpeed(PlayerEntity controllingPlayer) {
-        BlockPos feetPos = ((AbstractHorseEntity) (Object) this).getBlockPos().down();
-        Block blockAtFeet = controllingPlayer.getWorld().getBlockState(feetPos).getBlock();
-        float horseSpeedMultiplier;
-        if (blockAtFeet == Blocks.DIRT_PATH) {
-            horseSpeedMultiplier = RebalancingVanilla.CONFIG.horseDirtPathSpeedMultiplier;
-        } else {
-            horseSpeedMultiplier = RebalancingVanilla.CONFIG.horseSpeedMultiplier;
+        AbstractHorseEntity instance = ((AbstractHorseEntity) (Object) this);
+        double movementSpeed = instance.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+        if (RebalancingVanilla.CONFIG.horseSwimAmount > 0 && instance.getFluidHeight(FluidTags.WATER) > instance.getSwimHeight()) {
+            instance.addVelocity(0, RebalancingVanilla.CONFIG.horseSwimAmount, 0);
         }
-        return (float) ((AbstractHorseEntity) (Object) this).getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * horseSpeedMultiplier;
+        if (instance.getWorld().getBlockState(instance.getBlockPos().down()).getBlock() == Blocks.DIRT_PATH) {
+            movementSpeed *= RebalancingVanilla.CONFIG.horseDirtPathSpeedMultiplier;
+        } else {
+            movementSpeed *= RebalancingVanilla.CONFIG.horseSpeedMultiplier;
+        }
+        return (float) movementSpeed;
     }
-
 }

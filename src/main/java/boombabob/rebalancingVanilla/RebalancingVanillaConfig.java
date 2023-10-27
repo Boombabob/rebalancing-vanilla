@@ -30,7 +30,7 @@ public class RebalancingVanillaConfig implements Config {
     public float horseSpeedMultiplier = 1.5f;
 
     @Comment("""
-        Horse speed multiplier when on a dirt path (does not stack with horseSpeedMultiplier)
+        Horse speed multiplier when on a dirt path (stacks with horseSpeedMultiplier)
         Vanilla: 1.0
         Default: 2.0
         Suggested min/max: 0.95, 1.002
@@ -38,9 +38,12 @@ public class RebalancingVanillaConfig implements Config {
     public float horseDirtPathSpeedMultiplier = 2.0f;
 
     @Comment("""
-        Whether horses swim when you are riding them
+        Amount horses swim upwards when being ridden (Very sensitive)
+        Vanilla: 0.0
+        Default: 0.06
+        Suggested min/max: 0, 0.1
             """)
-    public boolean horsesSwim = true;
+    public float horseSwimAmount = 0.06f;
 
     @Comment("""
         Furnace minecart speed multiplier
@@ -81,10 +84,30 @@ public class RebalancingVanillaConfig implements Config {
     public float elytraSpeedMultiplier = 0.985f;
 
     @Comment("""
-        Elytra speed multiplier (very sensitive! anything above ~1.002 allows for infinite flight & speed)
-        Vanilla: 1.0
-        Default: 0.985
-        Suggested min/max: 0.95, 1.002
+        Campfire updraft height (set to 0 to disable)
+        Default: 10
+        Suggested min/max:
             """)
-    public float elytraSpeedMultiplier = 0.985f;
+    public int campfireUpdraftHeight = 10;
+
+    @Comment("""
+        Campfire updraft height when hay bale is under it (set to 0 to disable)
+        Default: 24
+        Suggested min/max:
+            """)
+    public int signalCampfireUpdraftHeight = 24;
+
+    @Comment("""
+        Campfire updraft strength (set to 0 to disable)
+        Default: 1.0
+        Suggested min/max:
+            """)
+    public float campfireUpdraftStrength = 1.0f;
+
+    @Comment("""
+        Soul campfire updraft strength (set to 0 to disable)
+        Default: 1.5
+        Suggested min/max:
+            """)
+    public float soulCampfireUpdraftStrength = 1.5f;
 }

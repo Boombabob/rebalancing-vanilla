@@ -1,16 +1,12 @@
 package boombabob.rebalancingVanilla.mixin;
 
 import boombabob.rebalancingVanilla.RebalancingVanilla;
-import boombabob.rebalancingVanilla.RebalancingVanillaConfig;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.projectile.FireworkRocketEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -45,11 +41,11 @@ public class FireworkRocketEntityMixin {
         Vec3d vec3d = instance.getRotationVector();
         // No idea what the numbers actually mean, but I made it work
         double x = 0.5d;
-        float fireworkBoostStrengthMultiplier = RebalancingVanilla.CONFIG.FireworkBoostStrengthMultiplier;
-        if (RebalancingVanilla.CONFIG.FireworkLevelChangesBoostNotDuration) {
+        float fireworkBoostStrengthMultiplier = RebalancingVanilla.CONFIG.fireworkBoostStrengthMultiplier;
+        if (RebalancingVanilla.CONFIG.fireworkLevelChangesBoostNotDuration) {
             fireworkBoostStrengthMultiplier *= FlightDuration;
         }
-        if (RebalancingVanilla.CONFIG.FireworkBoostStrengthMultiplier != 0) {
+        if (RebalancingVanilla.CONFIG.fireworkBoostStrengthMultiplier != 0) {
             instance.setVelocity(vec3d2.add(vec3d.multiply(x * fireworkBoostStrengthMultiplier + 0.1).subtract(vec3d2.multiply(x))));
         }
     }
