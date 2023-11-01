@@ -110,4 +110,34 @@ public class RebalancingVanillaConfig implements Config {
         Suggested min/max:
             """)
     public float soulCampfireUpdraftStrength = 1.5f;
+
+    @Comment("""
+        Saturation for all stews
+        Vanilla: 0.6
+        Default: 0.9
+        Suggested min: 0.1
+            """)
+    public float stewSaturationModifier = 0.9f;
+
+    @Comment("""
+        Saturation for the golden carrot
+        Vanilla: 1.2
+        Default: 0.9
+        Suggested min: 0.1
+            """)
+    public float goldenCarrotSaturationModifier = 0.9f;
+
+    @Comment("""
+        Whether low hunger restoring foods have faster eat time
+        Vanilla: false
+        Default: true
+            """)
+    public boolean fasterEating = true;
+
+    @Comment("""
+        Whether glow berries give the glow effect
+        Vanilla: false
+        Default: true
+            """)
+    public boolean glowBerriesGlow = true;
 }

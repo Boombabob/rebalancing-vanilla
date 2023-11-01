@@ -5,8 +5,10 @@
   "mixins": [
     "AbstractHorseEntityMixin",
     "FireworkRocketEntityMixin",
+    "FoodComponentsMixin",
     "FurnaceMinecartEntityMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "OreDropsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
