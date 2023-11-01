@@ -140,4 +140,11 @@ public class RebalancingVanillaConfig implements Config {
         Default: true
             """)
     public boolean glowBerriesGlow = true;
+
+    @Comment("""
+        Multiplier for fortune drops (will always be >1)
+        Vanilla: 1.0
+        Default: 0.75
+            """)
+    public float fortuneDropMultiplier = 0.75f;
 }
