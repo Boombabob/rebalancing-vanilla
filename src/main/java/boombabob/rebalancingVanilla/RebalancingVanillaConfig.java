@@ -137,8 +137,9 @@ public class RebalancingVanillaConfig implements Config {
     @Comment("""
         Glow berry glow effect duration (in seconds)
         Set to 0 to disable
-        Vanilla: false
-        Default: true
+        Vanilla: 0
+        Default: 10
+        Suggested min: 1
             """)
     public int glowBerriesGlowDuration = 10;
 
