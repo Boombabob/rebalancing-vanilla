@@ -24,8 +24,8 @@ public class FoodComponentsMixin {
 
     @Final
     @Shadow
-    public static FoodComponent GLOW_BERRIES = RebalancingVanilla.CONFIG.glowBerriesGlow ?
-        makeFood(2, 0.1f, true).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 200, 0), 1.0f).alwaysEdible().build()
+    public static FoodComponent GLOW_BERRIES = RebalancingVanilla.CONFIG.glowBerriesGlowDuration > 0 ?
+        makeFood(2, 0.1f, true).statusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 20 * RebalancingVanilla.CONFIG.glowBerriesGlowDuration, 0), 1.0f).alwaysEdible().build()
         : makeFood(2, 0.1f, true).build();
 
     @Final

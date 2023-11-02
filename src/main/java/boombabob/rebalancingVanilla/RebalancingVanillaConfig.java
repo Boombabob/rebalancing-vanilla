@@ -135,14 +135,15 @@ public class RebalancingVanillaConfig implements Config {
     public boolean fasterEating = true;
 
     @Comment("""
-        Whether glow berries give the glow effect
+        Glow berry glow effect duration (in seconds)
+        Set to 0 to disable
         Vanilla: false
         Default: true
             """)
-    public boolean glowBerriesGlow = true;
+    public int glowBerriesGlowDuration = 10;
 
     @Comment("""
-        Multiplier for fortune drops (will always be >1)
+        Multiplier for fortune drops (will always drop at least one of the item)
         Vanilla: 1.0
         Default: 0.75
             """)
