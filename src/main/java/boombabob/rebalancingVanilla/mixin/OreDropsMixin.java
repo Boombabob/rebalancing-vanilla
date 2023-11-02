@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class OreDropsMixin {
     @Inject(method = "getValue", at = @At(value = "RETURN", ordinal = 0), cancellable = true)
     private void injected(Random random, int initialCount, int enchantmentLevel, CallbackInfoReturnable<Integer> cir) {
-        int returnValue = (int) (cir.getReturnValue() * RebalancingVanilla.CONFIG.fortuneDropMultiplier);
+        int returnValue = (int) (cir.getReturnValue() * RebalancingVanilla.CONFIG.fortuneOreDropMultiplier);
         if (returnValue < 1) {
             returnValue = 1;
         }

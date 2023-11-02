@@ -144,9 +144,10 @@ public class RebalancingVanillaConfig implements Config {
     public int glowBerriesGlowDuration = 10;
 
     @Comment("""
-        Multiplier for fortune drops (will always drop at least one of the item)
+        Multiplier for fortune drops from ores (will always drop at least one of the item)
+        Set to 0 to disable fortune giving bonus drops for ores
         Vanilla: 1.0
         Default: 0.75
             """)
-    public float fortuneDropMultiplier = 0.75f;
+    public float fortuneOreDropMultiplier = 0.75f;
 }
